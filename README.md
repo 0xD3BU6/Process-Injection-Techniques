@@ -161,3 +161,4 @@ For an analysis, correlate the source process, target process, timestamps, threa
 6. **Loading mechanisms:** understand PE layout before approaching image replacement or reflective loading.
 7. **Defensive analysis:** compare expected behavior with collected events and debugger evidence.
 
+Use an isolated Windows lab and programs you own or are authorized to inspect. As technique guides are added, they should include prerequisites, conceptual explanations, Rust-specific details, observed results, detection context, and primary references.
