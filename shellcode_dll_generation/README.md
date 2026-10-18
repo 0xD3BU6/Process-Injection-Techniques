@@ -4,7 +4,7 @@ Before studying injection techniques, we need to understand what is being placed
 
 This chapter develops those foundations using the calculator and message-box examples from the **Compiling Shellcode and DLL** lesson. The explanations are written independently, with Windows and Rust documentation used to check the details. The aim is to make the reasoning useful to anyone following this study repository.
 
-**Current state:** [shellcode_rs](shellcode_rs/) contains a Rust local shellcode execution example. Its [source](shellcode_rs/src/main.rs), [Cargo manifest](shellcode_rs/Cargo.toml), and [Windows execution screenshot](shellcode.png) are available in this directory. The DLL sections remain theory; there is no DLL implementation here yet.
+**Current state:** [shellcode_rs](shellcode_rs/) contains a Rust local shellcode execution example. Its [source](shellcode_rs/src/main.rs), [Cargo manifest](shellcode_rs/Cargo.toml), and [Windows execution screenshot](shellcode.png) are available in this directory. A separate [exports example](no_mangle_examples/) demonstrates a Rust library interface. Remote DLL injection and the lesson's message-box DLL have not been implemented here.
 
 ## Contents
 
@@ -216,6 +216,8 @@ Windows calls `DllMain` while holding the loader lock. Work performed there can 
 In particular, the lesson's message box inside `DllMain` is a teaching shortcut. Microsoft advises against User32/GDI calls in this context because they can involve additional loading. A reusable example should demonstrate its visible behavior after initialization rather than adopt that shortcut as a design pattern.
 
 ## Building a DLL with Rust
+
+For a focused explanation of exported names, ABIs, and edition-2024 syntax, see [Understanding `#[no_mangle]` and `#[unsafe(no_mangle)]`](docs/no-mangle.md). Its [standalone example](no_mangle_examples/) builds a small library with named functions and read-only metadata; it is separate from the shellcode execution project.
 
 For a Rust library intended to be consumed through a system-compatible interface, `cdylib` is the relevant crate type. On a Windows target, it produces a DLL. A Rust `dylib` serves Rust dynamic-linking use cases and is a different artifact choice. [The Rust Reference: Linkage](https://doc.rust-lang.org/reference/linkage.html)
 
