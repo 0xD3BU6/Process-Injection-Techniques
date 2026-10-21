@@ -292,8 +292,6 @@ Change one assumption at a time and record what the observation actually establi
 - [Shellcode and DLL foundations](../shellcode_dll_generation/README.md): local execution, representations, and initialization basics.
 - [Export naming in Rust](../shellcode_dll_generation/docs/no-mangle.md): `#[unsafe(no_mangle)]`, ABIs, and library inspection.
 
-The captures document this Windows lab run. Dependency resolution from a clean checkout, other target architectures, and failure paths have not been independently verified here.
-
 ## Primary references
 
 - [MITRE ATT&CK: Dynamic-link Library Injection](https://attack.mitre.org/techniques/T1055/001/).
