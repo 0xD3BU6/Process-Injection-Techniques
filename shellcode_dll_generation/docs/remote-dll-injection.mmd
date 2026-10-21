@@ -1,0 +1,29 @@
+flowchart LR
+    subgraph A["Process A - Rust injector"]
+        AHandle["Process handle and control flow"]
+        APath["Local path buffer: CString for LoadLibraryA"]
+    end
+
+    subgraph B["Process B - target address space"]
+        BPath["Remote allocation: DLL path data"]
+        BThread["New thread in the target"]
+        BLoader["Windows loader in target context"]
+        BModule["Mapped DLL and initialization"]
+    end
+
+    Disk[("DLL file on disk")]
+    AHandle -->|"VirtualAllocEx: reserve target memory"| BPath
+    APath -->|"WriteProcessMemory: transfer path bytes"| BPath
+    AHandle -->|"CreateRemoteThread: valid target entry point"| BThread
+    BThread -->|"loader call"| BLoader
+    BPath -->|"path argument read by loader"| BLoader
+    BLoader -->|"open DLL and dependencies"| Disk
+    Disk -->|"image mapped into target"| BModule
+    BLoader -->|"initialization notifications"| BModule
+
+    classDef injector fill:#dbeafe,stroke:#2563eb,color:#0f172a
+    classDef target fill:#dcfce7,stroke:#16a34a,color:#0f172a
+    classDef storage fill:#fef3c7,stroke:#d97706,color:#0f172a
+    class AHandle,APath injector
+    class BPath,BThread,BLoader,BModule target
+    class Disk storage
