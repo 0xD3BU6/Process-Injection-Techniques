@@ -294,8 +294,6 @@ References: [MITRE ATT&CK T1055.003](https://attack.mitre.org/techniques/T1055/0
 - [Previous remote DLL injection study](../shellcode_dll_generation/docs/remote-dll-injection.md)
 - [Shellcode / DLL generation foundations](../shellcode_dll_generation/README.md)
 
-> Adjust the relative links above to match the final repository layout. The referenced `src/main.rs`, manifest, and PNG images were not among the standalone files available for this edit.
-
 ## References
 
 - [MITRE ATT&CK — Thread Execution Hijacking (T1055.003)](https://attack.mitre.org/techniques/T1055/003/)
