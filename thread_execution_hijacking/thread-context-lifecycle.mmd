@@ -1,0 +1,22 @@
+sequenceDiagram
+    participant R as Rust program
+    participant L as Local CONTEXT value
+    participant W as Windows context APIs
+    participant T as Existing target thread
+    Note over R,T: Conceptual successful path; every operation can fail
+    R->>W: SuspendThread(thread handle)
+    W->>T: Increase suspend count; suspend user-mode execution
+    R->>L: Initialize architecture-appropriate ContextFlags
+    R->>W: GetThreadContext(thread handle, local context)
+    W-->>L: Fill requested register groups
+    Note over L,T: Local snapshot and target thread state are separate
+    R->>L: Change local Rip field
+    Note over L,T: Assignment alone does not modify the target
+    R->>W: SetThreadContext(thread handle, local context)
+    L-->>W: Selected context fields
+    W->>T: Apply requested context changes while stopped
+    Note over W,T: Context update alone does not resume execution
+    R->>W: ResumeThread(thread handle)
+    W->>T: Decrease suspend count
+    Note over W,T: If count is zero, thread can be scheduled
+    Note over T: Execution follows updated control state when scheduled

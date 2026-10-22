@@ -1,0 +1,43 @@
+flowchart TB
+    subgraph A["Process A - Rust study program"]
+        Identify["Identify target PID and existing TID"]
+        Handles["OpenProcess / OpenThread: obtain separate handles"]
+        Prepare["Prepare code bytes in target memory"]
+        Capture["GetThreadContext: read selected state into local CONTEXT"]
+        Edit["Edit local Rip field to the target code address"]
+        Apply["SetThreadContext: apply selected state to stopped thread"]
+    end
+
+    subgraph B["Process B - target process"]
+        Buffer["Target allocation: code bytes, valid execution permissions"]
+        Existing["Existing thread: original application work"]
+        Stopped["SuspendThread: user-mode execution suspended"]
+        Saved["Stopped thread state: original RIP and RSP"]
+        Updated["Stopped thread state: updated RIP"]
+        Eligible["ResumeThread: eligible when suspend count reaches zero"]
+        Execute["When scheduled: execution follows updated control state"]
+        After["Continuation must be designed and observed separately"]
+    end
+
+    Identify --> Handles
+    Handles --> Prepare
+    Prepare -->|"VirtualAllocEx / WriteProcessMemory"| Buffer
+    Existing --> Stopped
+    Handles --> Stopped
+    Stopped --> Saved
+    Saved --> Capture
+    Capture --> Edit
+    Buffer -.->|"address value in target space"| Edit
+    Edit --> Apply
+    Apply --> Updated
+    Updated --> Eligible
+    Eligible --> Execute
+    Buffer -.->|"instruction bytes"| Execute
+    Execute --> After
+
+    classDef local fill:#dbeafe,stroke:#2563eb,color:#0f172a
+    classDef target fill:#dcfce7,stroke:#15803d,color:#0f172a
+    classDef control fill:#fef3c7,stroke:#b45309,color:#0f172a
+    class Identify,Handles,Prepare,Capture,Edit,Apply local
+    class Buffer,Existing,Stopped,Saved,Updated target
+    class Eligible,Execute,After control

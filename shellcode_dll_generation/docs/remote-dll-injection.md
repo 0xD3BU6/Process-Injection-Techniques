@@ -287,6 +287,7 @@ Change one assumption at a time and record what the observation actually establi
 
 ## Connecting this to the repository
 
+- **Next chapter:** [Thread Execution Hijacking in Rust](thread-execution-hijacking.md), covering existing threads, RIP, context updates, and execution state.
 - [Remote module source](../../remote_dll_injection/src/main.rs) and [manifest](../../remote_dll_injection/Cargo.toml): the implementation accompanying the recorded Windows run.
 - [DLL prototype](../../dll_gen/src/lib.rs): the module being studied separately from the injector.
 - [Shellcode and DLL foundations](../README.md): local execution, representations, and initialization basics.

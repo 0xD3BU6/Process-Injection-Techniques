@@ -257,6 +257,7 @@ The Rust source and screenshot now provide a concrete local example to read agai
 ## Further reading
 
 - **Next chapter:** [Remote DLL Injection in Rust](docs/remote-dll-injection.md), including a technical diagram of the two address spaces, path transfer, and loader behavior.
+- **Following chapter:** [Thread Execution Hijacking in Rust](docs/thread-execution-hijacking.md), explaining RIP, thread context, and the difference between a context edit and execution.
 - **Lesson context:** Hack The Box Academy, *Process Injection Attacks and Detection*, “Compiling Shellcode and DLL.” The calculator and message-box examples are the starting point for this chapter; no payload listing or C implementation is reproduced here. [Original module](https://academy.hackthebox.com/app/module/266)
 - **Image structure:** [Microsoft PE Format](https://learn.microsoft.com/en-us/windows/win32/debug/pe-format).
 - **Loading behavior:** [LoadLibraryW](https://learn.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibraryw), [DllMain](https://learn.microsoft.com/en-us/windows/win32/dlls/dllmain), and [DLL Best Practices](https://learn.microsoft.com/en-us/windows/win32/dlls/dynamic-link-library-best-practices).
