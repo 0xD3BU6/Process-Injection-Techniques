@@ -217,8 +217,6 @@ The later capture described in the original notes shows the test MessageBox with
 
 **What we cannot conclude:** That the original thread resumed its previous instruction stream, that all target resources remained usable, or that this behavior generalizes to every existing thread.
 
-> **Note about `EXITFUNC=none`:** Do not assume that this option automatically creates a safe return path. In the referenced MessageBox module, the explicit special-case branch is for `THREAD`; other option handling should be checked against the exact module/version. A payload finishing without exiting does not automatically jump back to the original RIP.
-
 ## 6. Why stack alignment was not the established root cause
 
 Windows x64 has a defined calling convention, including stack-alignment rules, shadow space, register preservation, and unwind behavior. Abrupt control-flow redirection can violate assumptions that hold during a normal call.
